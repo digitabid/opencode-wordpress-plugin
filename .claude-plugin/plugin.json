@@ -1,0 +1,8 @@
+{
+  "name": "wordpress.com",
+  "version": "0.0.1",
+  "description": "Uses Claude Code to create and edit WordPress sites with WordPress Studio before deploying changes to your WordPress.com site.",
+  "author": {
+    "name": "Automattic"
+  }
+}
