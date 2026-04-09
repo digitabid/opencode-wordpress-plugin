@@ -34,11 +34,11 @@ Claude must be started from the folder where your Studio sites live (or a subdir
 
 ## Getting started
 
-Here's what a typical `/quick-build` session looks like:
+Here's what a typical `/wordpress.com:quick-build` session looks like:
 
 1. **Run the command** — Type your site description after the command:
    ```
-   /quick-build A landing page for my pottery studio called Clay & Fire
+   /wordpress.com:quick-build A landing page for my pottery studio called Clay & Fire
    ```
 
 2. **Share design assets (optional)** — Claude asks if you have logos, photos, or brand guidelines. Share a folder path or skip.
@@ -57,13 +57,13 @@ Here's what a typical `/quick-build` session looks like:
 
 | Command | Description |
 |---|---|
-| `/quick-build <description>` | Main workflow — describe your site, pick a design, get a deployed theme |
-| `/preview-designs <description>` | Generate or regenerate 3 design direction previews without a full build |
-| `/design-site <description>` | Advanced multi-phase workflow — style tiles, page layouts, full mockups, then theme build |
+| `/wordpress.com:quick-build <description>` | Main workflow — describe your site, pick a design, get a deployed theme |
+| `/wordpress.com:preview-designs <description>` | Generate or regenerate 3 design direction previews without a full build |
+| `/wordpress.com:design-site <description>` | Advanced multi-phase workflow — style tiles, page layouts, full mockups, then theme build |
 
 ## Advanced: `/design-site`
 
-The `/design-site` command adds several phases before the final theme build:
+The `/wordpress.com:design-site` command adds several phases before the final theme build:
 
 - **Style tiles** — 3 palette/typography/component directions rendered as interactive HTML tiles. Pick one (or mix elements) to lock your design tokens.
 - **Page layouts** — 3 full-page layout compositions built from your locked tokens. Pick the layout approach that works best.
@@ -87,13 +87,13 @@ This plugin collects anonymous, count-only usage statistics to help understand h
 
 | Group | Stat | When |
 |---|---|---|
-| `agent-site-builder` | `started` | `/quick-build` invoked |
+| `agent-site-builder` | `started` | `/wordpress.com:quick-build` invoked |
 | `agent-site-builder` | `theme-activated` | Theme deployed and activated |
 
 ## Troubleshooting
 
 - **`studio: command not found`** — Enable the CLI in WordPress Studio's settings, then restart your terminal. [CLI docs](https://developer.wordpress.com/docs/developer-tools/studio/cli/).
 - **"Wrong directory" error** — Start Claude from `~/Studio` (or wherever your Studio sites live). The plugin needs to be running from the Studio sites folder.
-- **Design previews are blank** — This usually means a path issue with image sources. Re-run `/preview-designs` to regenerate.
+- **Design previews are blank** — This usually means a path issue with image sources. Re-run `/wordpress.com:preview-designs` to regenerate.
 - **Node.js not found during block fixing** — Install [Node.js 18+](https://nodejs.org/). The block markup validator requires it.
-- **Theme activates but looks wrong** — Re-run `/quick-build` to regenerate the theme, or iterate on specific elements by asking Claude to adjust colors, typography, or layout.
+- **Theme activates but looks wrong** — Re-run `/wordpress.com:quick-build` to regenerate the theme, or iterate on specific elements by asking Claude to adjust colors, typography, or layout.
