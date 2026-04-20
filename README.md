@@ -1,6 +1,6 @@
-# WordPress.com Claude Code Plugin
+# Build with WordPress Claude Code Plugin
 
-Describe a website in plain English, get a complete WordPress block theme deployed to your local Studio site — ready to push to WordPress.com.
+Describe a website in plain English, get a complete WordPress block theme deployed to your local Studio site — ready to push to WordPress.com or Pressable.
 
 ## What this does
 
