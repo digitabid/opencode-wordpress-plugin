@@ -1,4 +1,4 @@
-# Build with WordPress Claude Code Plugin
+# Build with WordPress — Claude Code and OpenCode Plugin
 
 Describe a website in plain English, get a complete WordPress block theme deployed to your local Studio site — ready to push to WordPress.com or Pressable.
 
@@ -13,11 +13,13 @@ There are two workflows:
 
 ## Prerequisites
 
-1. **Claude Code** — [Install Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) if you haven't already.
+1. **Claude Code or OpenCode** — Install [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) or [OpenCode](https://opencode.ai/docs/).
 2. **WordPress Studio** — A local WordPress environment from Automattic. [Download Studio](https://developer.wordpress.com/studio/), then enable the CLI so the `studio` command is available in your terminal ([CLI docs](https://developer.wordpress.com/docs/developer-tools/studio/cli/)).
 3. **Node.js 18+** — Needed by the bundled block markup validator that runs after theme generation.
 
 ## Installation
+
+### Claude Code
 
 1. Clone this repo (or note the path if you already have it):
    ```bash
@@ -31,6 +33,62 @@ There are two workflows:
    ```
 
 Claude must be started from the folder where your Studio sites live (or a subdirectory of it). The plugin checks this on first run and will prompt you if you're in the wrong directory.
+
+### OpenCode
+
+1. Clone this repository using the command above.
+2. Add the adapter's absolute file URL to `plugin` in your Studio folder's
+   `opencode.json` (or your global `~/.config/opencode/opencode.json`). Merge
+   this entry into an existing configuration rather than replacing it:
+
+   ```json
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "plugin": ["file:///absolute/path/to/claude-code-wordpress.com/opencode.mjs"]
+   }
+   ```
+
+   To get the correct URL, including encoding for spaces, run from this repository:
+
+   ```bash
+   node --input-type=module -e 'import { pathToFileURL } from "node:url"; console.log(pathToFileURL(process.cwd() + "/opencode.mjs").href)'
+   ```
+
+3. Start OpenCode from the folder containing your Studio sites:
+
+   ```bash
+   cd ~/Studio
+   opencode
+   ```
+
+4. Run `/wordpress.com:quick-build A landing page for my pottery studio`.
+   `/wordpress.com:preview-designs` and `/wordpress.com:design-site` are also
+   available. The commands use the interactive `build` agent and your configured
+   model. Claude Code is not required.
+
+The adapter loads the shared command Markdown at startup, registers the
+`site-specification` skill, maps delegation to OpenCode's `general` subagent,
+and supplies the repository path to shell tools. Keep the entire clone in
+place; restart OpenCode after updating it. Existing commands with the same
+names take precedence. Your model and permission settings are preserved.
+Approve access to the plugin and Studio directories when OpenCode requests it.
+On systems without a desktop browser, previews are returned as URLs/file paths.
+
+OpenCode support uses the official [plugin hooks](https://opencode.ai/docs/plugins/),
+[custom commands](https://opencode.ai/docs/commands/), and
+[agent skills](https://opencode.ai/docs/skills/). No MCP server or npm dependency
+is required by this adapter.
+
+To uninstall, remove the adapter entry from `plugin` and restart OpenCode.
+
+### Adapter verification
+
+```bash
+node --test tests/opencode.test.mjs
+```
+
+After installation, `opencode debug config` shows the registered commands and
+`opencode debug skill` lists `site-specification`.
 
 ## Getting started
 
@@ -75,7 +133,7 @@ For contributors: the implementation details live in `skills/` (skill definition
 
 ## Telemetry
 
-**Opt out:** Set this environment variable before running Claude:
+**Opt out:** Set this environment variable before running Claude or OpenCode:
 
 ```bash
 export WP_SITE_CREATOR_NO_TELEMETRY=1
@@ -89,6 +147,9 @@ This plugin collects anonymous, count-only usage statistics to help understand h
 |---|---|---|
 | `agent-site-builder` | `started` | `/wordpress.com:quick-build` invoked |
 | `agent-site-builder` | `theme-activated` | Theme deployed and activated |
+
+OpenCode uses the `opencode-build-started` and `opencode-theme-activated`
+counters through the same tracking script and respects the same opt-out.
 
 ## Troubleshooting
 

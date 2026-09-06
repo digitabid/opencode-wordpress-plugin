@@ -27,6 +27,10 @@ Block markup validation and fixing is handled by a bundled Node.js script:
 node ${CLAUDE_PLUGIN_ROOT}/scripts/block-fixer/cli.js <theme-dir>
 ```
 
+In OpenCode, `opencode.mjs` supplies `CLAUDE_PLUGIN_ROOT` through the `shell.env`
+hook for compatibility with the shared references. Use OpenCode's `bash`,
+`read`, and `write` tools and quote complete shell paths containing spaces.
+
 ### Setup
 
 1. Install [WordPress Studio](https://developer.wordpress.com/studio/)
@@ -38,5 +42,5 @@ These features do not require external services:
 
 | Capability | Implementation |
 |---|---|
-| Theme generation | Claude's code generation |
+| Theme generation | The configured coding agent's code generation |
 | Design previews | HTML artifacts with inline CSS |
